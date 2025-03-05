@@ -14,7 +14,6 @@ const List = ({ items, handleDelete, handleCheck, handleEdit }) => {
         </span>
       </div>
 
-      {/* Check if there are no tasks */}
       {items.length === 0 ? (
         <p className="text-center text-gray-500">No tasks found</p>
       ) : (
@@ -24,7 +23,7 @@ const List = ({ items, handleDelete, handleCheck, handleEdit }) => {
               key={item.id}
               className="flex items-center justify-between p-3 bg-gray-200 rounded-md shadow-sm"
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 w-full">
                 <input
                   type="checkbox"
                   checked={item.completed}
@@ -37,21 +36,24 @@ const List = ({ items, handleDelete, handleCheck, handleEdit }) => {
                     item.completed
                       ? "line-through text-gray-500"
                       : "text-gray-800"
-                  } flex w-fit items-center gap-1 sm:gap-2 break-words text-sm md:text-base`}
+                  } break-words text-sm md:text-base`}
                 >
                   {item.text}
                 </span>
               </div>
+
               <div className="flex gap-2">
                 <button
                   onClick={() => handleEdit(item.id)}
                   className="text-blue-500 hover:text-blue-600 transition cursor-pointer"
+                  aria-label="Edit Task"
                 >
                   <FaEdit />
                 </button>
                 <button
                   onClick={() => handleDelete(item.id)}
                   className="text-red-500 hover:text-red-600 transition cursor-pointer"
+                  aria-label="Delete Task"
                 >
                   <FaTrash />
                 </button>

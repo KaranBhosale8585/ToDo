@@ -4,7 +4,7 @@ import { FaSave } from "react-icons/fa";
 const AddItem = ({ input, setInput, addTask }) => {
   return (
     <form
-      className="flex flex-col md:flex-row gap-2 mb-4"
+      className="flex flex-col sm:flex-row gap-2 mb-4"
       onSubmit={(e) => e.preventDefault()}
     >
       <input
@@ -17,7 +17,8 @@ const AddItem = ({ input, setInput, addTask }) => {
       <button
         type="submit"
         onClick={addTask}
-        className="flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+        className="flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200 w-full sm:w-auto"
+        aria-label="Add Task"
       >
         <FaSave className="mr-2" /> Save
       </button>

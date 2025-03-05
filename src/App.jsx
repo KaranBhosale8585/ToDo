@@ -11,7 +11,7 @@ const App = () => {
       const savedItems = localStorage.getItem("ToDoList");
       return savedItems ? JSON.parse(savedItems) : [];
     } catch (error) {
-      console.log("Error reading from localStorage:", error);
+      console.error("Error reading from localStorage:", error);
       return [];
     }
   });
@@ -50,7 +50,7 @@ const App = () => {
       <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
         React To-Do
       </h2>
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+      <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-md">
         <Routes>
           <Route
             path="/"
