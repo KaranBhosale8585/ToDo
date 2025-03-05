@@ -37,7 +37,7 @@ const List = ({ items, handleDelete, handleCheck, handleEdit }) => {
                     item.completed
                       ? "line-through text-gray-500"
                       : "text-gray-800"
-                  } flex fit-content items-center gap-2`}
+                  } flex w-fit items-center gap-1 sm:gap-2 break-words text-sm md:text-base`}
                 >
                   {item.text}
                 </span>
