@@ -39,6 +39,12 @@ const App = () => {
     );
   };
 
+  const handleEdit = (id) => {
+    const editedItem = items.find((item) => item.id === id);
+    setInput(editedItem.text);
+    handleDelete(id);
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
       <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
@@ -57,6 +63,7 @@ const App = () => {
           items={items}
           handleDelete={handleDelete}
           handleCheck={handleCheck}
+          handleEdit={handleEdit}
         />
       </div>
     </div>
