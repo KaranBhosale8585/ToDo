@@ -21,7 +21,7 @@ const List = ({ items, handleDelete, handleCheck, handleEdit }) => {
           {items.map((item) => (
             <li
               key={item.id}
-              className="flex flex-wrap items-center justify-between p-3 bg-gray-200 rounded-md shadow-sm"
+              className="flex items-center justify-between p-3 bg-gray-200 rounded-md shadow-sm"
             >
               <div className="flex items-center gap-3 w-full">
                 <input
