@@ -21,7 +21,7 @@ const List = ({ items, handleDelete, handleCheck, handleEdit }) => {
           {items.map((item) => (
             <li
               key={item.id}
-              className="flex items-center justify-between p-3 bg-gray-200 rounded-md shadow-sm"
+              className="flex flex-wrap items-center justify-between p-3 bg-gray-200 rounded-md shadow-sm"
             >
               <div className="flex items-center gap-3 w-full">
                 <input
@@ -31,15 +31,17 @@ const List = ({ items, handleDelete, handleCheck, handleEdit }) => {
                   className="h-5 w-5 cursor-pointer"
                   aria-label={`Mark ${item.text} as completed`}
                 />
-                <span
-                  className={`${
-                    item.completed
-                      ? "line-through text-gray-500"
-                      : "text-gray-800"
-                  } break-words text-sm md:text-base`}
-                >
-                  {item.text}
-                </span>
+                <div className="w-full overflow-hidden">
+                  <span
+                    className={`${
+                      item.completed
+                        ? "line-through text-gray-500"
+                        : "text-gray-800"
+                    } break-words break-all w-full text-sm md:text-base block`}
+                  >
+                    {item.text}
+                  </span>
+                </div>
               </div>
 
               <div className="flex gap-2">
