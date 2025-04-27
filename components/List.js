@@ -1,8 +1,6 @@
-"use client";
-
-import { toast, Toaster } from "react-hot-toast";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { toast, Toaster } from "react-hot-toast";
 import { Loader, Edit, Trash, Plus, Save } from "lucide-react";
 
 const List = () => {
@@ -12,16 +10,13 @@ const List = () => {
   const [isEdit, setIsEdit] = useState(null);
   const [editId, setEditId] = useState(null);
 
-  useEffect(() => {
+  const fetchItems = useCallback(async () => {
     if (status === "loading") return;
     if (!session?.user?.email) {
       toast.error("Not Logged in");
       return;
     }
-    fetchItems();
-  }, [session, status]);
 
-  const fetchItems = async () => {
     const userId = session.user.email;
     const response = await fetch("/api/get", {
       method: "POST",
@@ -40,7 +35,11 @@ const List = () => {
     } else {
       setItems(data.todos);
     }
-  };
+  }, [session, status]);
+
+  useEffect(() => {
+    fetchItems();
+  }, [fetchItems]); // fetchItems is now in the dependency array
 
   const handleCheck = async (id, checked) => {
     const newCheckState = checked;
@@ -113,7 +112,7 @@ const List = () => {
     const data = await response.json();
 
     if (!data.todos) {
-      setItems([]); 
+      setItems([]);
       return;
     }
 
@@ -155,7 +154,6 @@ const List = () => {
       toast.error("Failed to update item");
     }
   };
-
 
   if (status === "loading") {
     return (
