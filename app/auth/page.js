@@ -18,6 +18,9 @@ export default function Auth() {
                 <Image
                   src={session.user?.image || ""}
                   alt="User"
+                  width={400}
+                  height={400}
+                  layout="intrinsic"
                   className="w-10 h-10 rounded-full object-cover border-2 border-white"
                 />
                 <div className="text-white text-sm">

@@ -113,7 +113,7 @@ const List = () => {
     const data = await response.json();
 
     if (!data.todos) {
-      setItems([]);
+      setItems([]); 
       return;
     }
 
