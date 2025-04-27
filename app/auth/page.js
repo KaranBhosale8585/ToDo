@@ -1,5 +1,6 @@
 "use client";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
 
 export default function Auth() {
   const { data: session } = useSession();
@@ -7,14 +8,14 @@ export default function Auth() {
     <header className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 p-4 shadow-lg">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
         <h1 className="text-3xl font-bold text-white tracking-wider mb-3 md:mb-0">
-          Todo's App
+          Todo&apos;s App
         </h1>
 
         <div className="flex items-center gap-4">
           {session ? (
             <>
               <div className="flex items-center gap-3 bg-white/10 p-2 rounded-full pr-4 hover:bg-white/20 transition">
-                <img
+                <Image
                   src={session.user?.image || ""}
                   alt="User"
                   className="w-10 h-10 rounded-full object-cover border-2 border-white"
