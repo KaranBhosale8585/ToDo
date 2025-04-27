@@ -4,6 +4,7 @@ import Image from "next/image";
 
 export default function Auth() {
   const { data: session } = useSession();
+
   return (
     <header className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 p-4 shadow-lg">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
@@ -16,16 +17,19 @@ export default function Auth() {
             <>
               <div className="flex items-center gap-3 bg-white/10 p-2 rounded-full pr-4 hover:bg-white/20 transition">
                 <Image
-                  src={session.user?.image || ""}
+                  src={session.user?.image || "/default-profile.png"} // fallback for missing image
                   alt="User"
-                  width={400}
-                  height={400}
-                  layout="intrinsic"
+                  width={40}
+                  height={40}
                   className="w-10 h-10 rounded-full object-cover border-2 border-white"
                 />
                 <div className="text-white text-sm">
-                  <p className="font-semibold">{session.user?.name}</p>
-                  <p className="text-xs text-gray-200">{session.user?.email}</p>
+                  <p className="font-semibold">
+                    {session.user?.name || "User"}
+                  </p>
+                  <p className="text-xs text-gray-200">
+                    {session.user?.email || "No email available"}
+                  </p>
                 </div>
               </div>
 

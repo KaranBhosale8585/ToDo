@@ -1,22 +1,27 @@
-import { useSession } from "next-auth/react";
-import { useEffect, useState, useCallback } from "react";
+"use client";
+
 import { toast, Toaster } from "react-hot-toast";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { Loader, Edit, Trash, Plus, Save } from "lucide-react";
 
 const List = () => {
   const { data: session, status } = useSession();
   const [items, setItems] = useState([]);
   const [data, setData] = useState("");
-  const [isEdit, setIsEdit] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
 
-  const fetchItems = useCallback(async () => {
+  useEffect(() => {
     if (status === "loading") return;
     if (!session?.user?.email) {
       toast.error("Not Logged in");
       return;
     }
+    fetchItems();
+  }, [session, status]);
 
+  const fetchItems = async () => {
     const userId = session.user.email;
     const response = await fetch("/api/get", {
       method: "POST",
@@ -35,11 +40,7 @@ const List = () => {
     } else {
       setItems(data.todos);
     }
-  }, [session, status]);
-
-  useEffect(() => {
-    fetchItems();
-  }, [fetchItems]); // fetchItems is now in the dependency array
+  };
 
   const handleCheck = async (id, checked) => {
     const newCheckState = checked;
@@ -111,14 +112,7 @@ const List = () => {
     toast.success("Todo deleted successfully!");
     const data = await response.json();
 
-    if (!data.todos) {
-      setItems([]);
-      return;
-    }
-
-    setItems(data.todos);
-
-    fetchItems();
+    setItems(data.todos || []);
   };
 
   const handleStartEdit = (id, currentTitle) => {
@@ -127,7 +121,7 @@ const List = () => {
     setData(currentTitle);
   };
 
-  const handleEdit = async (id) => {
+  const handleEdit = async () => {
     if (!data.trim()) {
       toast.error("Please enter a todo title");
       return;
@@ -206,13 +200,11 @@ const List = () => {
           items.map((item, index) => (
             <li
               key={index}
-              className={`flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 rounded-lg shadow-sm border
-        ${
-          item.check
-            ? "bg-green-100 text-green-700 border-green-300"
-            : "bg-yellow-100 text-yellow-700 border-yellow-300"
-        }
-        hover:scale-[1.02] transition-all duration-300 space-y-2 sm:space-y-0`}
+              className={`flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 rounded-lg shadow-sm border ${
+                item.check
+                  ? "bg-green-100 text-green-700 border-green-300"
+                  : "bg-yellow-100 text-yellow-700 border-yellow-300"
+              } hover:scale-[1.02] transition-all duration-300 space-y-2 sm:space-y-0`}
             >
               <div className="flex items-center space-x-3">
                 <input
