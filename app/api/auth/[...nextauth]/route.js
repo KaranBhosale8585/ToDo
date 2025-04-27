@@ -14,6 +14,10 @@ const NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
+  debug: true,
+  error: (error) => {
+    console.error("NextAuth Error:", error); // Error logging
+  },
 };
 const handler = NextAuth(NextAuthOptions);
 export { handler as GET, handler as POST };
